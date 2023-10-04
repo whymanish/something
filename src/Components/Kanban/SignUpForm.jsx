@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,19 @@ const SignupForm = () => {
   });
 
   const [selectedRole, setSelectedRole] = useState(null);
+
+  useEffect(() => {
+    // Load data from local storage on component mount
+    const storedFormData = localStorage.getItem("signupFormData");
+    if (storedFormData) {
+      setFormData(JSON.parse(storedFormData));
+    }
+
+    const storedRole = localStorage.getItem("selectedRole");
+    if (storedRole) {
+      setSelectedRole(storedRole);
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,14 +33,54 @@ const SignupForm = () => {
 
   const handleRoleSelection = (role) => {
     setSelectedRole(role);
+    // Store selected role in local storage
+    localStorage.setItem("selectedRole", role);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your signup logic here, e.g., sending data to an API.
-    console.log("Selected Role:", selectedRole);
-    console.log(formData);
+
+    // Store form data in local storage
+    localStorage.setItem("signupFormData", JSON.stringify(formData));
+
+    try {
+      const response = await axios.post("/api/signup", {
+        email: formData.email,
+        password: formData.password,
+        role: selectedRole,
+      });
+
+      console.log("User registered:", response.data);
+      // Handle success or redirect to login page
+
+      // Clear form data and selected role after successful submission
+      setFormData({
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+      setSelectedRole(null);
+      localStorage.removeItem("signupFormData");
+      localStorage.removeItem("selectedRole");
+    } catch (error) {
+      console.error("Error registering user:", error);
+      // Handle error, e.g., show an error message to the user
+    }
   };
+
+  useEffect(() => {
+    // Log stored form data
+    const storedFormData = localStorage.getItem("signupFormData");
+    if (storedFormData) {
+      console.log("Stored Form Data:", JSON.parse(storedFormData));
+    }
+
+    // Log stored role
+    const storedRole = localStorage.getItem("selectedRole");
+    if (storedRole) {
+      console.log("Stored Role:", storedRole);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
