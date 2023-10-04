@@ -1,9 +1,10 @@
 import React from 'react';
+import ChatApp from '../ChatPage/ChatApp';
 
 const EventTable = () => {
   const eventData = [
-    { id: 1, name: 'Event 1', date: '2023-10-15' },
-    { id: 2, name: 'Event 2', date: '2023-11-20' },
+    { id: 1, name: 'Event 1', date: '2023-10-15',chat:<ChatApp/> },
+    { id: 2, name: 'Event 2', date: '2023-11-20',chat:<ChatApp/> },
     // Add more event data
   ];
 
@@ -22,6 +23,7 @@ const EventTable = () => {
             <tr key={event.id}>
               <td className="border px-4 py-2">{event.name}</td>
               <td className="border px-4 py-2">{event.date}</td>
+              <td className="border px-4 py-2">{event.chat}</td>
             </tr>
           ))}
         </tbody>

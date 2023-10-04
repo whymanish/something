@@ -1,43 +1,43 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const Event = ({ event }) => {
-  const [registered, setRegistered] = useState(false);
+function Event({ eventName, registrationLink, date, time }) {
+  const [status, setStatus] = useState('Not Registered');
 
-  const handleRegistration = () => {
-    setRegistered(true);
+  const handleRegister = () => {
+    // Perform registration logic here
+    // For example, make an API request to register the user
+    // After successful registration, set status to 'Registered'
+    // and setRegistered(true);
+    setStatus('Registered');
   };
 
-  const buttonText = registered ? "Join Group" : "Register";
-  const registrationStatus = registered ? "Registered" : "Not Registered";
+  const handleJoinGroup = () => {
+    window.location.href = registrationLink;
+  };
 
   return (
-    <div className="bg-white p-4 shadow-lg rounded-lg">
-      <h2 className="text-xl font-semibold">{event.title}</h2>
-      <p className="text-gray-500">{event.date}</p>
-      <p className="mt-2">{event.description}</p>
-      <div className="mt-4">
+    <div className="border p-4 mb-4">
+      <h2 className="text-xl font-semibold">{eventName}</h2>
+      <p>Date: {date}</p>
+      <p>Time: {time}</p>
+      <p>Status: {status}</p>
+      {status === 'Not Registered' ? (
         <button
-          onClick={handleRegistration}
-          className={`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 ease-in-out ${
-            registered ? "bg-green-500 hover:bg-green-600" : ""
-          }`}
+          className="bg-blue-500 text-white px-4 py-2 mt-2"
+          onClick={handleRegister}
         >
-          {buttonText}
+          Register
         </button>
-        <span className="ml-2 font-semibold">{registrationStatus}</span>
-      </div>
-      {registered && (
-        <a
-          href={event.link}
-          className="block mt-2 text-blue-500 hover:underline"
-          target="_blank"
-          rel="noopener noreferrer"
+      ) : (
+        <button
+          className="bg-green-500 text-white px-4 py-2 mt-2"
+          onClick={handleJoinGroup}
         >
-          Event Link
-        </a>
+          Join Group
+        </button>
       )}
     </div>
   );
-};
+}
 
 export default Event;

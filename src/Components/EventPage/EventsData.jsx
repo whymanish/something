@@ -1,18 +1,14 @@
-const EventsData = [
-    {
-      title: "Event 1",
-      date: "October 10, 2023",
-      description: "This is the description of Event 1.",
-      link: "https://example.com/event1",
-    },
-    {
-      title: "Event 2",
-      date: "October 15, 2023",
-      description: "This is the description of Event 2.",
-      link: "https://example.com/event2",
-    },
-    // Add more events here
-  ];
-  
-  export default EventsData;
-  
+const eventsData = [
+  {
+    eventName: 'Event 1',
+    date: '2023-10-10',
+    time: '10:00 AM',
+    registrationLink: 'https://example.com/event1-registration',
+  },
+  {
+    eventName: 'Event 2',
+    date: '2023-10-15',
+    time: '2:30 PM',
+    registrationLink: 'https://example.com/event2-registration',
+  },
+];
