@@ -16,12 +16,14 @@ import BudgetManagement from './Components/EventTest/BudgetManagement';
 import OrganizerCalendar from './Components/EventTest/OrganizerCalendar';
 import ChatApp from './Components/ChatPage/ChatApp';
 import SignUpForm from './Components/Kanban/SignUpForm';
+import LoginForm from './Components/Kanban/LoginForm';
+import SignupForm from './Components/Kanban/SignUpForm';
 function App() {
  
 
   return (
     <>
-  <SignUpForm/>
+ <LoginForm/>
     </>
     
   );

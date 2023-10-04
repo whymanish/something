@@ -14,12 +14,9 @@ const SignupForm = () => {
     // Load data from local storage on component mount
     const storedFormData = localStorage.getItem("signupFormData");
     if (storedFormData) {
-      setFormData(JSON.parse(storedFormData));
-    }
-
-    const storedRole = localStorage.getItem("selectedRole");
-    if (storedRole) {
-      setSelectedRole(storedRole);
+      const parsedData = JSON.parse(storedFormData);
+      setFormData(parsedData.formData);
+      setSelectedRole(parsedData.selectedRole);
     }
   }, []);
 
@@ -40,8 +37,8 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Store form data in local storage
-    localStorage.setItem("signupFormData", JSON.stringify(formData));
+    // Store form data and selected role in local storage
+    localStorage.setItem("signupFormData", JSON.stringify({ formData, selectedRole }));
 
     try {
       const response = await axios.post("/api/signup", {
@@ -72,13 +69,9 @@ const SignupForm = () => {
     // Log stored form data
     const storedFormData = localStorage.getItem("signupFormData");
     if (storedFormData) {
-      console.log("Stored Form Data:", JSON.parse(storedFormData));
-    }
-
-    // Log stored role
-    const storedRole = localStorage.getItem("selectedRole");
-    if (storedRole) {
-      console.log("Stored Role:", storedRole);
+      const parsedData = JSON.parse(storedFormData);
+      console.log("Stored Form Data:", parsedData.formData);
+      console.log("Stored Role:", parsedData.selectedRole);
     }
   }, []);
 
